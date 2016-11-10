@@ -1,0 +1,33 @@
+#include "MK64F12.h"                 // Device header
+#include "gpio.h"
+
+#ifndef PIN_H
+#define PIN_H
+
+
+
+class Pin: protected Gpio
+{
+//variables
+public:
+
+private:
+	uint8_t pin_;
+//functions
+public:
+	Pin (Port prt, uint8_t p , mux mx);
+	Pin (Port prt, uint8_t p , mode m = mode::Output);
+	void direction (mode m);
+	void setIn (PP pp_);
+	void setOut ();
+	void set();
+	void set (bool st);
+	void clear ();
+	void togle ();
+	bool state ();
+};
+
+#endif
+
+
+

@@ -1,24 +1,17 @@
-#include "MK02F12810.h"                 // Device header
-#include "gpio.h"
-#include "tact.h"
-#include "delay.h"
-#include "buffer.h"
+#include "MK64F12.h"                 // Device header
+#include "pin.h"
+#include "port.h"
 
-Tact frq;
-
-const uint8_t led = 6;
+const char ledDef = 1;
 
 int main ()
 {
-	Gpio * pins [2];
-
-	Gpio D (Gpio::Port::D);
-	D.settingPin(led);
-	pins[0] = &D;
-	pins[0]->setPin(led);
+	Pin led (Gpio::Port::A, ledDef);
+	led.set();
+	led.direction(Gpio::mode::Input);
+	bool state = led.state();
+	Port flexBus (Gpio::Port::A, (uint32_t)0xF0);
 	while (1)
 	{
-		D.toglePin (led);
-		delay_ms(1000);
 	}
 }
