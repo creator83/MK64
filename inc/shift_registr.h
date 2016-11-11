@@ -1,6 +1,6 @@
-#include "MK02F12810.h"                 // Device header
+#include "MK64F12.h"                 // Device header
 #include "spi.h"
-#include "gpio.h"
+#include "pin.h"
 
 namespace ShiftDef
 {
