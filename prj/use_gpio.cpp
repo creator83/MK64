@@ -1,6 +1,9 @@
 #include "MK64F12.h"                 // Device header
 #include "pin.h"
 #include "port.h"
+#include "tact.h"
+
+Tact frq;
 
 const char ledDef = 1;
 
@@ -10,7 +13,7 @@ int main ()
 	led.set();
 	led.direction(Gpio::mode::Input);
 	bool state = led.state();
-	Port flexBus (Gpio::Port::A, (uint32_t)0xF0);
+	Port flexBusPin (Gpio::Port::B, 0xFFF000);
 	while (1)
 	{
 	}

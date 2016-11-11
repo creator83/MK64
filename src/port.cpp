@@ -1,6 +1,6 @@
 #include "port.h"
 
-Port::Port (Port prt, uint32_t value)
+Port::Port (Gpio::Port prt, uint32_t value)
 :Gpio(prt)
 {
 	union
@@ -14,7 +14,7 @@ Port::Port (Port prt, uint32_t value)
 	GPIO_PDDR_REG(GpioBase [Gpio::prt]) |= value;
 }
 
-Port::Port (Port prt, mux mx, uint32_t value)
+Port::Port (Gpio::Port prt, mux mx, uint32_t value)
 :Gpio(prt)
 {
 	union
