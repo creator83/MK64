@@ -9,9 +9,10 @@ const char ledDef = 1;
 
 int main ()
 {
-	Pin led (Gpio::Port::A, ledDef);
+	Pin led (Gpio::Port::A, ledDef, Gpio::out::PushPull);
 	led.set();
-	led.direction(Gpio::mode::Input);
+	led.setIn(Gpio::PP::PullUp);
+	led.setOut();
 	bool state = led.state();
 	Port flexBusPin (Gpio::Port::B, 0xFFF000);
 	while (1)

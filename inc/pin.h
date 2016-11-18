@@ -16,10 +16,11 @@ private:
 //functions
 public:
 	Pin (Port prt, uint8_t p , mux mx);
-	Pin (Port prt, uint8_t p , mode m = mode::Output);
+	Pin (Port prt, uint8_t p , out o);
+	Pin (Port prt, uint8_t p , PP m);
 	void direction (mode m);
 	void setIn (PP pp_);
-	void setOut ();
+	void setOut (out o=out::PushPull);
 	void set();
 	void set (bool st);
 	void clear ();

@@ -98,12 +98,9 @@ public:
 
 };
 
-
-
 typedef uint16_t(Spi::*PotMemFn)() ;
 typedef uint16_t(Spi::*ptr_ex)(uint16_t) ;
 
 typedef void(Spi::*PotMemF)(uint16_t) ;
 
 #endif
-

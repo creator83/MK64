@@ -7,12 +7,23 @@ Pin::Pin (Gpio::Port prt, uint8_t p , mux mx)
 	PORT_PCR_REG(PortBase[Gpio::prt],pin_) |= (uint8_t)mx << PORT_PCR_MUX_SHIFT;
 }
 
-Pin::Pin (Port prt, uint8_t p , mode m )
+Pin::Pin (Port prt, uint8_t p , out o)
+{
+	pin_ = p;
+	PORT_PCR_REG(PortBase[Gpio::prt],pin_) |= (uint8_t)Gpio::mux::GPIO << PORT_PCR_MUX_SHIFT;
+	GPIO_PDDR_REG(GpioBase[Gpio::prt]) |= 1 << pin_;
+	PORT_PCR_REG(PortBase[Gpio::prt],pin_) &= ~PORT_PCR_ODE_MASK;
+	PORT_PCR_REG(PortBase[Gpio::prt],pin_) |= (uint8_t)o << PORT_PCR_ODE_SHIFT;
+}
+
+Pin::Pin (Port prt, uint8_t p , PP m)
 {
 	pin_ = p;
 	PORT_PCR_REG(PortBase[Gpio::prt],pin_) |= (uint8_t)Gpio::mux::GPIO << PORT_PCR_MUX_SHIFT;
 	GPIO_PDDR_REG(GpioBase[Gpio::prt]) &= ~(1 << pin_);
-	GPIO_PDDR_REG(GpioBase[Gpio::prt]) |= ((uint8_t)m << pin_);
+	PORT_PCR_REG(PortBase[Gpio::prt],pin_) |= PORT_PCR_PE_MASK;
+	PORT_PCR_REG(PortBase[Gpio::prt],pin_) &= ~PORT_PCR_PS_MASK;
+	PORT_PCR_REG(PortBase[Gpio::prt],pin_) |= (uint8_t)m << PORT_PCR_PS_SHIFT;
 }
 
 void Pin::direction (mode m)
@@ -29,10 +40,11 @@ void Pin::setIn (PP pp_)
 	PORT_PCR_REG(PortBase[prt],pin_) |= (uint8_t)pp_ << PORT_PCR_PS_MASK;
 }
 
-void Pin::setOut ()
+void Pin::setOut (out o)
 {
-	PORT_PCR_REG(PortBase[prt],pin_) &= ~(1 << PORT_PCR_PE_MASK);
 	GPIO_PDDR_REG(GpioBase[prt]) |= 1 << pin_;
+	PORT_PCR_REG(PortBase[Gpio::prt],pin_) &= ~PORT_PCR_ODE_MASK;
+	PORT_PCR_REG(PortBase[Gpio::prt],pin_) |= (uint8_t)o << PORT_PCR_ODE_SHIFT;
 }
 
 

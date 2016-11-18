@@ -82,11 +82,9 @@ void Tact::initPEE (uint8_t m)
 	while (((MCG->S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x3);
 }
 
-
 void Tact::setFrq (uint8_t frq)
 {
 
-  
 }
 
 
